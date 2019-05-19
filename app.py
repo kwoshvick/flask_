@@ -1,4 +1,5 @@
 import os
+from os import listdir
 import csv
 import tweepy
 import datetime
@@ -29,12 +30,33 @@ def fetch():
 
 @app.route('/view', methods=['GET'])
 def view():
-    return render_template('view_tweets.html')
+    directories = getFiles('static/csv/raw')
+    return render_template('view_tweets.html',directories=directories)
 
+@app.route('/viewspecific/<name>', methods=['GET'])
+def viewspecific(name):
+    data1 = pd.read_csv('static/csv/raw/' + name )
+    data = pd.DataFrame(data1)
+    return render_template('view_specific.html',data=data)
+    # print(name)
+    # view()
 
 @app.route('/predict', methods=['GET'])
 def predict():
-    return render_template('predictions.html')
+    directories = getFiles('static/csv/final')
+    return render_template('predict.html', directories=directories)
+
+
+@app.route('/viewspecificprediction/<name>', methods=['GET'])
+def viewspecificprediction(name):
+    data1 = pd.read_csv('static/csv/final/' + name )
+    data = pd.DataFrame(data1)
+    total = data.shape[0]
+    positive = data.loc[data.label == 1, 'label'].count()
+    negative = data.loc[data.label == 0, 'label'].count()
+    positive_score = (positive/total)*100
+    negative_score = (negative/total)*100
+    return render_template('predictions.html',data=data,total=total,positive=positive,negative=negative,positive_score=positive_score,negative_score=negative_score)
 
 
 @app.route('/fetch_tweets', methods=['GET', 'POST'])
@@ -46,10 +68,8 @@ def fetch_tweets():
         crawler(user)
         remove_neutral(user)
         svm_predict(user)
-
-        # return redirect(url_for('success', name=user))
         data = prinData(user)
-        return render_template('predictions.html', data=data)
+        return view()
 
 
 def sentiment_analyzer_scores(sentence):
@@ -108,4 +128,8 @@ def prinData(name):
     data1 = pd.read_csv('static/csv/final/final-' + name + '.csv')
     data = pd.DataFrame(data1)
     return data
-    # print(data)
+
+def getFiles(dir):
+    from os.path import isfile, join
+    onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
+    return onlyfiles

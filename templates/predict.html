@@ -9,8 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TV-Show Popularity | Fetch Tweets</title>
-
+    <title>TV-Show Popularity | View Tweets</title>
 
     <!-- Custom fonts for this template-->
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,7 +41,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-       <li class="nav-item active">
+        <li class="nav-item active">
             <a class="nav-link" href="">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -89,8 +88,6 @@
                 </button>
 
 
-
-
             </nav>
             <!-- End of Topbar -->
 
@@ -98,38 +95,48 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800"></h1>
-                </div>
-
-
-                <div class="card mb-8">
+                <h1 class="h3 mb-2 text-gray-800">Prediction on Tweets</h1>
+                <!-- DataTables Example -->
+                <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Fetch Tweet</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Results</h6>
                     </div>
                     <div class="card-body">
-                        <div class="panel-heading">
-                            Enter TV Hashtag to track Tweets from the Twitter Search API
-                        </div>
-                        <form action="/fetch_tweets" method="post">
-                            <div class="form-group">
-                                <label>Keywords</label>
-                                <input type="text" name="keywords" class="form-control">
-                                <p class="help-block">Example: #AMliveNTV </p>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Tweets</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Tweets</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for i in directories %}
+                                <tr>
 
-                            <button type="submit" value="submit" class="btn btn-primary">Submit
-                                Button
-                            </button>
-                            <button type="reset" class="btn btn-primary">Reset Button</button>
-                        </form>
+                                    <td>
+                                        <a href="/viewspecificprediction/{{ i  }}">{{ i }}
+                                    </a>
+                                    </td>
+                                </tr>
+                                {%endfor%}
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-        <!-- End of Main Content -->
+        <!-- /.container-fluid -->
 
+        <!-- End of Main Content -->
 
     </div>
     <!-- End of Content Wrapper -->

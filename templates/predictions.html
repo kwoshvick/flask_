@@ -41,29 +41,28 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+            <a class="nav-link" href="">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fa fa-download fa-fw"></i>
-          <span>Fetch Tweets</span></a>
-      </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/fetch">
+                <i class="fa fa-download fa-fw"></i>
+                <span>Fetch Tweets</span></a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fa fa-table fa-fw"></i>
-          <span>View Tweets</span></a>
-      </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/view">
+                <i class="fa fa-table fa-fw"></i>
+                <span>View Tweets</span></a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="">
-          <i class="fa fa-poll fa-fw"></i>
-          <span>Prediction Results</span></a>
-      </li>
-
+        <li class="nav-item">
+            <a class="nav-link" href="/predict">
+                <i class="fa fa-poll fa-fw"></i>
+                <span>Prediction Results</span></a>
+        </li>
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -101,6 +100,19 @@
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Results</h6>
+                Total tweets: {{ total }}
+                <br>
+                Total Positive tweets : {{ positive }}
+                <br>
+                Total Negative tweets : {{ negative }}
+                <br>
+                <br>
+                Positive Score: {{ positive_score }}
+                <br>
+                <br>
+                Negative score : {{ negative_score }}
+                <br>
+
             </div>
             <div class="card-body">
               <div class="table-responsive">
