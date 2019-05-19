@@ -18,10 +18,27 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index', methods=['GET'])
 def index():
-    # crawler()
-    user = {'username': 'Miguel222'}
-    return render_template('index.html')
+    return fetch()
 
+
+@app.route('/test', methods=['GET'])
+def test():
+    return render_template('test_tweet.html')
+
+@app.route('/test_message', methods=['GET', 'POST'])
+def test_message():
+    if request.method == 'POST':
+        print('--------------------------------------------')
+        user = request.form['keywords']
+        score = sentiment_analyzer_scores(user)
+        if(score['compound']>=0.05):
+            sentiment = 'Positive'
+        elif(score['compound']<= -0.05):
+            sentiment = 'Negative'
+        else:
+            sentiment = 'Neutral'
+
+        return render_template('display_test.html',sentence=user,sentiment=sentiment)
 
 @app.route('/fetch', methods=['GET'])
 def fetch():
@@ -38,8 +55,7 @@ def viewspecific(name):
     data1 = pd.read_csv('static/csv/raw/' + name )
     data = pd.DataFrame(data1)
     return render_template('view_specific.html',data=data)
-    # print(name)
-    # view()
+
 
 @app.route('/predict', methods=['GET'])
 def predict():
